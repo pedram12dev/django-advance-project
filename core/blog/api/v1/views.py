@@ -72,23 +72,23 @@ class PostList(ListCreateAPIView):
 
 
 
+""" post detail with APIView """
 
+# class PostDetail(APIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = PostSerializers
 
-class PostDetail(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = PostSerializers
+#     def get(self , request ,id):
+#         post = get_object_or_404(Post , pk=id ,status = True)
+#         serializer =self.serializer_class(post)
+#         return Response(serializer.data)
 
-    def get(self , request ,id):
-        post = get_object_or_404(Post , pk=id ,status = True)
-        serializer =self.serializer_class(post)
-        return Response(serializer.data)
-
-    def put(self , request ,id):
-        post = get_object_or_404(Post , pk=id ,status = True)
-        serializer =self.serializer_class(post , data=request.data)
-        serializer.is_valid(raise_exception = True)
-        serializer.save()
-        return Response(serializer.data)
+#     def put(self , request ,id):
+#         post = get_object_or_404(Post , pk=id ,status = True)
+#         serializer =self.serializer_class(post , data=request.data)
+#         serializer.is_valid(raise_exception = True)
+#         serializer.save()
+#         return Response(serializer.data)
 
 
 
@@ -97,13 +97,28 @@ class PostDetail(APIView):
 """ detail and show post with GenericAPIView """
 
 
-class PostDetail(GenericAPIView):
+# class PostDetail(GenericAPIView):
+#     permission_classes = []
+#     serializer_class = PostSerializers
+
+#     def get (self , request , id):
+#         post = get_object_or_404(Post , pk = id , status = True)
+#         serializer = self.serializer_class(post)
+#         return Response(serializer.data)
+
+
+""" detail post with RetrieveModelMixin """
+
+class PostDetail(GenericAPIView , mixins.RetrieveModelMixin):
     permission_classes = []
     serializer_class = PostSerializers
-
-    def get (self , request , id):
-        post = get_object_or_404(Post , pk = id , status = True)
-        serializer = self.serializer_class(post)
-        return Response(serializer.data)
+    queryset= Post.objects.filter(status = True)
+    lookup_field = 'id'
 
 
+    def get (self , request , *args , **kwargs):
+        return self.retrieve(request , *args , **kwargs)
+
+
+
+""" detail post with UpdateModelMixin """ 
