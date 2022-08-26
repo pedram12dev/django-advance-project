@@ -3,20 +3,12 @@ from rest_framework.permissions import IsAuthenticated , IsAuthenticatedOrReadOn
 from rest_framework.response import Response
 from .serializers import PostSerializers
 from blog.models import Post
-# from rest_framework import status
+from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView 
 from rest_framework.generics import GenericAPIView , ListCreateAPIView
-# from rest_framework import mixins
+from rest_framework import mixins
 from rest_framework.generics import ListCreateAPIView
-# from rest_framework.generics import RetrieveAPIView
-# from rest_framework.generics import RetrieveUpdateAPIView
-# from rest_framework.generics import RetrieveDestroyAPIView
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from rest_framework import viewsets
-
-
-
 
 
 # """ list and create post from APIView  """
@@ -72,10 +64,10 @@ from rest_framework import viewsets
 
 """ list and create post from ListCreateAPIView """
 
-# class PostList(ListCreateAPIView):
-#     permission_classes =[]
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter(status = True)
+class PostList(ListCreateAPIView):
+    permission_classes =[]
+    serializer_class = PostSerializers
+    queryset = Post.objects.filter(status = True)
 
 
 
@@ -117,113 +109,16 @@ from rest_framework import viewsets
 
 """ detail post with RetrieveModelMixin """
 
-# class PostDetail(GenericAPIView , mixins.RetrieveModelMixin):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset= Post.objects.filter(status = True)
-#     lookup_field = 'id'
-
-
-#     def get (self , request , *args , **kwargs):
-#         return self.retrieve(request , *args , **kwargs)
-
-
-
-""" detail post with UpdateModelMixin """ 
-
-
-# class PostDetail(GenericAPIView , mixins.RetrieveModelMixin , mixins.UpdateModelMixin):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset= Post.objects.filter(status = True)
-#     lookup_field = 'id'
-
-
-#     def get (self , request , *args , **kwargs):
-#         return self.retrieve(request , *args , **kwargs)
-
-#     def put (self , request , *args , **kwargs):
-#         return self.update(request , *args , **kwargs)
-
-""" detail post with UpdateModelMixin """ 
-
-# class PostDetail(RetrieveUpdateAPIView):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter(status = True)= []
-#     serializer_class = PostSerializers
-#     queryset= Post.objects.filter(status = True)
-#     lookup_field = 'id'
-
-
-#     def get (self , request , *args , **kwargs):
-#         return self.retrieve(request , *args , **kwargs)
-
-#     def put (self , request , *args , **kwargs):
-#         return self.update(request , *args , **kwargs)
-
-#     def delete(self , request , *args , **kwargs):
-#         return self.destroy(request , *args , **kwargs)
-
-
-
-""" RetriveAPIView in post detail """
-
-# class PostDetail(RetrieveAPIView):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter (status = True)
-
-
-""" RetrieveUpdateAPIView """
-
-# class PostDetail(RetrieveUpdateAPIView):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter(status = True)
-
-
-""" RetrieveDestroyAPIView """
-
-# class PostDetail(RetrieveDestroyAPIView):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter (status = True)
-
-
-""" RetrieveUpdateDestroyAPIView in post detail """
-
-# class PostDetail(RetrieveUpdateDestroyAPIView):
-#     permission_classes = []
-#     serializer_class = PostSerializers
-#     queryset = Post.objects.filter(status = True)
-
-
-""" ViewSets """
-
-class PostViewSet(viewsets.ViewSet):
+class PostDetail(GenericAPIView , mixins.RetrieveModelMixin):
     permission_classes = []
     serializer_class = PostSerializers
-    queryset = Post.objects.filter (status = True)
-
-    def list(self , request):
-        serializer = self.serializer_class(self.queryset , many= True)
-        return Response (serializer.data)
-
-    def retrieve(self , request , pk=None):
-        post_object = get_object_or_404(self.queryset , pk=pk)
-        serializer = self.serializer_class(post_object)
-        return Response(serializer.data)
+    queryset= Post.objects.filter(status = True)
+    lookup_field = 'id'
 
 
-    def create(self , request , pk = None):
-        pass
+    def get (self , request , *args , **kwargs):
+        return self.retrieve(request , *args , **kwargs)
 
-    def update(self , request , pk=None):
-        pass 
 
-    def partial_update (self , request ,pk = None):
-        pass
 
-    def destroy (self , request , pk=None):
-        pass 
+""" detail post with UpdateModelMixin """ 
