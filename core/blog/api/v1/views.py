@@ -89,3 +89,21 @@ class PostDetail(APIView):
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data)
+
+
+
+
+
+""" detail and show post with GenericAPIView """
+
+
+class PostDetail(GenericAPIView):
+    permission_classes = []
+    serializer_class = PostSerializers
+
+    def get (self , request , id):
+        post = get_object_or_404(Post , pk = id , status = True)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data)
+
+
