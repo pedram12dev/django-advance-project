@@ -72,7 +72,7 @@ class PostList(ListCreateAPIView):
 
 
 
-
+""" post detail with APIView """
 
 class PostDetail(APIView):
     permission_classes = [IsAuthenticated]
@@ -107,3 +107,7 @@ class PostDetail(GenericAPIView):
         return Response(serializer.data)
 
 
+""" detail post with RetrieveModelMixin """
+
+class PostDetail(GenericAPIView , mixins.RetrieveModelMixin):
+    
