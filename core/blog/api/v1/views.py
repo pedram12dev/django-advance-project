@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view , permission_classes
+from rest_framework.decorators import api_view , permission_classes ,action
 from rest_framework.permissions import IsAuthenticated , IsAuthenticatedOrReadOnly 
 from rest_framework.response import Response
 from .serializers import CategorySerializer, PostSerializers
@@ -205,6 +205,13 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = []
     serializer_class = PostSerializers
     queryset = Post.objects.filter (status = True)
+
+
+    """ simple router with extra action"""
+    # @action(methods = ["get"] , detail =False)
+    # def get_ok(self , request):
+    #     return Response({"detail" : "ok"})
+
 
     # def list(self , request):
     #     serializer = self.serializer_class(self.queryset , many= True)
