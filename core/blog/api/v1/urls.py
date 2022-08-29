@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import PostViewSet
+from .views import CategoryModelViewSet, PostViewSet
 from rest_framework.routers import DefaultRouter
 
 app_name = "api-v1"
 
 router = DefaultRouter()
 router.register('post' ,PostViewSet , basename = 'post')
+router.register('category' , CategoryModelViewSet , basename = 'category')
 urlpatterns = router.urls
 
 
