@@ -24,9 +24,13 @@ class Post(models.Model):
 
 
 
+        """ set snippet from content """
+    def get_snippet(self):
+        return self.content[0:5]
+
+
 class Category (models.Model):
     name = models.CharField(max_length=250)
-
 
 
 

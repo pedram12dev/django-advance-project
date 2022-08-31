@@ -19,7 +19,8 @@ from rest_framework import viewsets
 
 
 
-# """ list and create post from APIView  """
+""" list and create post from APIView  """
+
 # class PostList(APIView):
 #     # permission_classes = [IsAuthenticated]
 #     serializer_class = PostSerializers
@@ -35,7 +36,7 @@ from rest_framework import viewsets
 #         return Response(serializer.data)
 
 
-# """ list and create post from GenericAPIView """
+""" list and create post from GenericAPIView """
 
 # class PostList(GenericAPIView):
 #     permission_classes = []
@@ -56,7 +57,7 @@ from rest_framework import viewsets
 
 
 
-# """ list and create post from ListModelMixin and CreateModelMixin """
+""" list and create post from ListModelMixin and CreateModelMixin """
 
 # class PostList(GenericAPIView , mixins.ListModelMixin , mixins.CreateModelMixin):
 #     permission_classes = []
