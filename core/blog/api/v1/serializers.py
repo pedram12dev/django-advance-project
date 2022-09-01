@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from blog.models import Category, Post
+from accounts.models import Profile
 
 
 
@@ -31,7 +32,7 @@ class PostSerializers(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['auther','title','status','content','category','snippet' ,'created_date','published_date']
-        read_only_fields = ['category']
+        read_only_fields = ['category' , 'auther']
         
  
     def to_representation(self , instance):
@@ -41,5 +42,10 @@ class PostSerializers(serializers.ModelSerializer):
             rep.pop('snippet' ,None)
         else:
             rep.pop('content',None)
-        rep['category'] = CategorySerializer(instance.category).data
+        rep['category'] = CategorySerializer(instance.category,context={'request':request}).data
         return rep
+    
+    
+    def create(self , validated_data):
+        validated_data['auther'] = Profile.objects.get(user__id=self.context.get('request').user.id)
+        return super().create(validated_data)
