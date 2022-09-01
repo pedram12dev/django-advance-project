@@ -17,6 +17,7 @@ from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter , OrderingFilter
+from .paginations import LargeResultsSetPagination
 
 
 
@@ -212,6 +213,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category' , 'auther' , 'status']
     search_fields = ['title' , 'content']
     ordering_fields = ['published_date']
+    pagination_class = LargeResultsSetPagination
 
     """ simple router with extra action"""
     # @action(methods = ["get"] , detail =False)
