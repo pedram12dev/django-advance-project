@@ -14,6 +14,7 @@ from rest_framework.generics import ListCreateAPIView
 # from rest_framework.generics import RetrieveDestroyAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework import viewsets
+from .permissions import IsOwnerOrReadOnly
 
 
 
@@ -203,7 +204,7 @@ from rest_framework import viewsets
 """ ViewSets """
 
 class PostViewSet(viewsets.ModelViewSet):
-    permission_classes = []
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     serializer_class = PostSerializers
     queryset = Post.objects.filter (status = True)
 
