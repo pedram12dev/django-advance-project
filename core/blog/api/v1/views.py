@@ -15,6 +15,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 
@@ -207,7 +208,8 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     serializer_class = PostSerializers
     queryset = Post.objects.filter (status = True)
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category' , 'auther' , 'status']
 
     """ simple router with extra action"""
     # @action(methods = ["get"] , detail =False)
