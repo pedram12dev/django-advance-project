@@ -16,7 +16,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter , OrderingFilter
 
 
 
@@ -208,9 +208,10 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     serializer_class = PostSerializers
     queryset = Post.objects.filter (status = True)
-    filter_backends = [DjangoFilterBackend , SearchFilter]
+    filter_backends = [DjangoFilterBackend , SearchFilter , OrderingFilter]
     filterset_fields = ['category' , 'auther' , 'status']
     search_fields = ['title' , 'content']
+    ordering_fields = ['published_date']
 
     """ simple router with extra action"""
     # @action(methods = ["get"] , detail =False)
