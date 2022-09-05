@@ -1,11 +1,10 @@
 from rest_framework import generics
-from .serializers import RegistrationSerializer
+from .serializers import RegistrationSerializer ,CustomTokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-
-
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class RegistrationApiView(generics.GenericAPIView):
     
@@ -37,3 +36,7 @@ class CustomObtinAuthToken(ObtainAuthToken):
             'user_id' : user.pk ,
             'email' : user.email,
         })
+        
+        
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

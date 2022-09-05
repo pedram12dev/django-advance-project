@@ -1,9 +1,12 @@
+from re import L
 from rest_framework import serializers
 from accounts.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+ 
 
 
 
@@ -68,3 +71,11 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+    
+    
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self , attrs):
+        validated_data = super().validate(attrs)
+        validated_data["email"] = self.user.email
+        validated_data["user_id"] = self.user.id
+        return validated_data
