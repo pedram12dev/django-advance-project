@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    # 'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'core.urls'
 
@@ -145,15 +147,18 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 REST_FRAMEWORK = { 
-                  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+                  'DEFAULT_SCHEMA_CLASS': ('rest_framework.schemas.coreapi.AutoSchema'),
+                  
                   'DEFAULT_AUTHENTICATION_CLASSES': (
-                     'rest_framework_simplejwt.authentication.JWTAuthentication',
+
                      'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
                      'rest_framework.authentication.SessionAuthentication',
                      'rest_framework.authentication.TokenAuthentication',
+                     'rest_framework_simplejwt.authentication.JWTAuthentication',
                     ),
                 'DEFAULT_PERMISSION_CLASSES': [
                         'rest_framework.permissions.IsAuthenticated',
         ],
                   
 }
+

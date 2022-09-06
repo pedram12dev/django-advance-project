@@ -1,15 +1,15 @@
-from re import L
+from dataclasses import fields
+from accounts.models import Profile, User
 from rest_framework import serializers
-from accounts.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib.auth import get_user_model
+
 from django.contrib.auth import password_validation
  
-User = get_user_model
+
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -107,4 +107,13 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
         return user
+    
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(source = 'user.email' , read_only = True)
+    
+    
+    class Meta : 
+        model = Profile
+        fields = ('id' , 'email' , 'firstname' , 'lastname' ,'image', 'description')
         
