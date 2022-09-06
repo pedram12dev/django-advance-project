@@ -13,9 +13,12 @@ urlpatterns =[
         #login
         path ('token/login/' , views.CustomObtinAuthToken.as_view() , name='token-login'),
         
+ 
         
         #jwt login
         path ('jwt/create/' , views.CustomTokenObtainPairView.as_view() , name='jwt-create'),
         path ('jwt/refresh/' ,TokenRefreshView.as_view() , name = 'jwt-refresh'),
-        path ('jwt/verify/' ,TokenVerifyView.as_view() , name= 'jwt-verify' )
+        path ('jwt/verify/' ,TokenVerifyView.as_view() , name= 'jwt-verify' ),
+        #change password
+        path('change-password/' , views.ChangePasswordAPIView.as_view(),name='change-password'),
 ]
