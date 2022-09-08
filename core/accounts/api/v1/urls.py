@@ -13,6 +13,9 @@ urlpatterns =[
         #login
         path ('token/login/' , views.CustomObtinAuthToken.as_view() , name='token-login'),
         
+        # activaiton send email test
+        
+        path ('test-email/' , views.TestEmailSend.as_view() , name = 'test-email'),
  
         
         #jwt login
