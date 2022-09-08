@@ -13,7 +13,6 @@ from django.core.mail import send_mail
 
 
 
-
 class RegistrationApiView(generics.GenericAPIView):
     
     serializer_class =  RegistrationSerializer
